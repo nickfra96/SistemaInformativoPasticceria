@@ -32,7 +32,7 @@ public class UtenzaConverter implements Converter {
             String dbName = "fortino?useSSL=false";
             String driver = "com.mysql.jdbc.Driver";
             String userName = "root";
-            String password = "inkoming";
+            String password = "password";
 
             Utenza m = new Utenza();
             try {
