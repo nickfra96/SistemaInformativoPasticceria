@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Dettaglio Fornitura Materia Prima</title>
+        
+    </h:head>
+    <h:body>
+        <div align="center">
+            <img src="resources/images/peccati-di-gola-logo-1.jpg" width="400"></img>
+        </div>
+        <p:dataTable id="dettForn" value="#{fornituraController.dettaglioFornitura}" var="dett1" style="margin-bottom:20px" >
+            <p:column headerText="ID Fornitura">
+                <h:outputText value="#{dett1.fornitura.id}" />
+            </p:column>
+            <p:column headerText="Codice Materia Prima">
+                <h:outputText value="#{dett1.materiaprima.descrizione}" />
+            </p:column>
+            <p:column headerText="Quantità">
+                <h:outputText value="#{dett1.quantita}" />
+            </p:column>
+            <p:column headerText="Prezzo Unitario">
+                <h:outputText value="#{dett1.prezzoUnitario}" />
+            </p:column>
+        </p:dataTable>
+        <div align="center">
+            <br />
+            <br />
+            <p:button outcome="/magazzinoin/lista" value="Vai al magazzino" icon="fa fa-cubes"/>
+            <br />
+            <br />
+            <p:button outcome="/index" value="Home" icon="fa fa-home"/>
+        </div>
+    </h:body>
+</html>
+

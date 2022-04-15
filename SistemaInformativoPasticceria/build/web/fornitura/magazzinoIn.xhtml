@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Magazzino ingresso</title>
+        
+    </h:head>
+    <h:body>
+        <div align="center">
+            <img src="resources/images/peccati-di-gola-logo-1.jpg" width="400"></img>
+        </div>
+        <h:form id="wow">
+            <div align="center">
+                <img src="resources/images/peccati-di-gola-logo-1.jpg"></img>
+                <br/>
+                <br/>
+                <p:outputLabel value="Benvenuto #{login.user}"/>
+                <br/>
+            </div>
+            <p:remoteCommand name="onload" oncomplete="PF('magIn').clearFilters()" autoRun="true" />
+            <p:growl id="msgs" showDetail="true"/>
+            <p:dataTable id="magIn" value="#{fornituraController.magazzinoIn}" var="item" editable="true" style="margin-bottom:20px"
+                         binding="#{dataTableMagCdi.dataTable}" widgetVar="magIn" emptyMessage="Nessuna Materia prima trovata col criterio scelto"
+                         filteredValue="#{magazzinoInController.listaFiltrata}">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Magazzino Ingresso" />
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="Codice" filterBy="#{item.materiaprima.codice}" filterMatchMode="contains">
+                    <h:outputText value="#{item.materiaprima.codice}" />
+                </p:column>
+                <p:column headerText="Descrizione" filterBy="#{item.materiaprima.descrizione}" filterMatchMode="contains">
+                    <h:outputText value="#{item.materiaprima.descrizione}" />
+                </p:column>
+                <p:column headerText="Quantità">
+                    <h:outputText value="#{item.quantita}" />
+                </p:column>
+                <p:column>
+                    <p:commandButton title="Modifica" action="#{dataTableMagCdi.preparaModifica()}" icon="fa fa-fw fa-edit" 
+                                     iconPos="center"/>
+                    <h:outputText value=" "/>
+                    <p:commandButton title="Elimina" action="#{dataTableMagCdi.eliminaEvedi()}" update="wow" 
+                                     icon="fa fa-fw fa-remove" iconPos="center"/>
+                </p:column>
+            </p:dataTable>
+            <div align="center" >
+                <br />
+                <br />
+                <p:commandButton value="Crea nuovo elemento magazzino" action ="#{magazzinoInController.preparaCrea()}" icon="fa fa-plus"/>
+                <br />
+                <br />
+                <p:button outcome="/index" value="Home" icon="fa fa-home"/>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

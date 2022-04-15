@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <div align="center">
+            <img src="resources/images/peccati-di-gola-logo-1.jpg" width="400"></img>
+        </div>
+        <h:form id="trx">
+            <p:growl id="msgsx" showDetail="true"/>
+            <p:dataTable id="forniture" value="#{fornitoreController.listaForniture}" binding="#{dataModelCdi.dataTable}" 
+                         var="items" style="margin-bottom:20px"  widgetVar="forniture">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Lista Forniture di #{fornitoreController.fornitore.nome}" />
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="ID">
+                    <h:outputText value="#{items.id}" />
+                </p:column>
+                <p:column headerText="Data">
+                    <h:outputText value="#{items.data}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Tipo">
+                    <h:outputText value="#{items.tipo}" />
+                </p:column>
+                <p:column headerText="Fornitore">
+                    <h:outputLink value="javascript:void(0)" onclick="PF('pop').show();">
+                        #{fornitoreController.fornitore.piva}
+                    </h:outputLink>
+                </p:column>
+                <p:column>
+                    <p:commandButton title="Dettaglio" action="#{dataModelCdi.vediDettaglioFornitura()}" icon="fa fa-fw fa-list"/>
+                    <h:outputText value=" " />
+                     
+                    <p:commandButton title="Elimina" action="#{dataModelCdi.eliminaEVediForniture()}" icon="fa fa-fw fa-remove"
+                                     update="trx"/>
+                    <h:outputText value=" " />
+                    <p:commandButton title="Visualizza fattura" action="#{dataModelCdi.trovaFattura()}" icon="fa fa-search" 
+                                     oncomplete="PF('fatt').show();" update="trx:fatt"/>
+                </p:column>
+            </p:dataTable>
+            <br />
+            <p:commandButton value="Aggiungi Fornitura" action="#{dataModelCdi.preparaCreaFornitura()}" icon="fa fa-plus"/>
+            <div align="center">
+                <br/>
+                <br/>
+                <p:commandButton action="#{dataModelCdi.tornaAListaFornitori()}" value="Torna alla lista dei fornitori" icon="fa fa-user"/>
+                <br />
+                <br />
+                <p:button outcome="/index" value="Home" icon="fa fa-home"/>
+            </div>
+            <p:dialog id="pop" widgetVar="pop" header="Dettaglio Fornitore" resizable="false" showEffect="clip" hideEffect="clip">
+                <p:panelGrid columns="2">
+                    <h:outputLabel value="Partita IVA" for="piva" />
+                    <h:outputText id="piva" value="#{fornitoreController.fornitore.piva}" />
+                    <h:outputLabel value="Nome" for="nome" />
+                    <h:outputText id="nome" value="#{fornitoreController.fornitore.nome}" />
+                    <h:outputLabel value="Telefono" for="telefono" />
+                    <h:outputText id="telefono" value="#{fornitoreController.fornitore.telefono}" />
+                    <h:outputLabel value="Sede" for="sede" />
+                    <h:outputText id="sede" value="#{fornitoreController.fornitore.sede}" />
+                    <h:outputLabel value="Tipo" for="tipo" />
+                    <h:outputText id="tipo" value="#{fornitoreController.fornitore.tipo}" />
+                </p:panelGrid>
+            </p:dialog>
+            <p:dialog id="fatt" widgetVar="fatt" header="Dettaglio Fattura" resizable="false" showEffect="clip" hideEffect="clip">
+                <c:choose >
+                    <c:when test="#{fornitoreController.fattura ne null}" >
+                        <p:panelGrid columns="2">
+                            <h:outputLabel value="Fornitura ID" for="idf" />
+                            <h:outputText id="idf" value="#{fornitoreController.fattura.fornituraId}" />
+                            <h:outputLabel value="Numero" for="num" />
+                            <h:outputText id="num" value="#{fornitoreController.fattura.numero}" />
+                            <h:outputLabel value="Anno" for="anno" />
+                            <h:outputText id="anno" value="#{fornitoreController.fattura.anno}" />
+                            <h:outputLabel value="Data" for="data" />
+                            <h:outputText id="data" value="#{fornitoreController.fattura.data}" />
+                            <h:outputLabel value="Tipo" for="tip" />
+                            <h:outputText id="tip" value="#{fornitoreController.fattura.tipo}" />
+                            <h:outputLabel value="Importo" for="imp" />
+                            <h:outputText id="imp" value="#{fornitoreController.fattura.importo}" />
+                        </p:panelGrid>
+                    </c:when>
+                    <c:when test="#{fornitoreController.fattura eq null}" >
+                        <h:outputText value="Nessuna fattura registrata per la fornitura selezionata" />
+                        <br/>
+                        <br/>
+                        <div align="center">
+                            <p:commandButton value="Registra Fattura" action="#{fornitoreController.preparaCreaFatturaDaListaForniture()}" 
+                                             update="trx:msgsx"/>
+                        </div>
+                    </c:when>
+                </c:choose>
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

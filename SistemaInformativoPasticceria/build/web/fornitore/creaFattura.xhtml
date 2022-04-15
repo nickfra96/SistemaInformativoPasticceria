@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Crea fattura</title>
+    </h:head>
+    <h:body>
+        <div align="center">
+            <img src="resources/images/peccati-di-gola-logo-1.jpg" width="400"></img>
+        </div>
+        <h:form>
+            <p:panelGrid columns="2">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Registra Fattura per la fornitura n #{fornitoreController.fornitura.id}" />
+                    </p:outputPanel>
+                </f:facet>
+                <h:outputLabel value="ID Fornitura" for="idf" />
+                <h:inputText id="idf" value="#{fornitoreController.fornitura.id}" title="ID Fornitura" disabled="true" />
+                <h:outputLabel value="Numero" for="num" />
+                <h:inputText id="num" value="#{fornitoreController.fattura.numero}" title="Numero" />
+                <h:outputLabel value="Anno" for="anno" />
+                <h:inputText id="anno" value="#{fornitoreController.fattura.anno}" title="Anno" />
+                <h:outputLabel value="Data" for="data" />
+                <p:calendar id="data" value="#{fornitoreController.data}" effect="fold" mindate="#{fornitoreController.minDate}" maxdate="#{fornitoreController.maxDate}" />
+                <h:outputLabel value="Tipo" for="tipo" />
+                <h:inputText id="tipo" value="#{fornitoreController.fornitura.tipo}" title="Tipo" disabled="true" />
+                <h:outputLabel value="Importo" for="importo" />
+                <h:inputText id="importo" value="#{fornitoreController.fattura.importo}" title="Importo" disabled="true" />
+            </p:panelGrid>
+            <br />
+            <p:commandButton value="Registra" action="#{dataModelCdi.preparaListaFatture()}" icon="fa fa-pencil-square-o"/>
+            <br />
+            <br />
+            <div align="center">
+                <p:button outcome="/fornitore/listaForniture" value="Torna alla lista delle forniture di #{fornitoreController.fornitore.nome}" 
+                          icon="fa fa-newspaper-o"/>
+                <br />
+                <br />
+                <p:button outcome="/fornitore/lista" value="Torna alla lista dei fornitori" icon="fa fa-user"/>
+                <br />
+                <br />
+                <p:button outcome="/index" value="Torna alla Home" icon="fa fa-home"/>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

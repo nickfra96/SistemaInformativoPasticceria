@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Aggiungi Materia Prima</title>
+        <style>
+            .Bimage{background-image: url("resources/images/legno.png");}
+        </style>
+    </h:head>
+    <h:body>
+        <div align="center">
+            <img src="resources/images/peccati-di-gola-logo-1.jpg" width="400"></img>
+        </div>
+        <h:form>
+            <div align="center">
+                <br/>
+                <br/>
+                <p:outputLabel value="Benvenuto #{login.user}"/>
+                <br/>
+            </div>
+            <p:panel>
+
+                <p:panelGrid columns="4" >
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Crea nuovo elemento magazzino" />
+                        </p:outputPanel>
+                    </f:facet>
+                    <h:outputLabel value="Descrizione" for="desc" />
+
+                    <p:inputText id="desc" value="#{magazzinoInController.materiaprima.descrizione}" title="Descrizione" 
+                                 required="true" requiredMessage="Campo obbligatorio" validatorMessage="Nome troppo lungo">
+                        <f:validateLength maximum="45" />
+                        <p:clientValidator event="keyup"/>
+                    </p:inputText>
+
+                    <p:message for="desc" id="msg"/>
+                    <p:tooltip for="desc" value="Stringa di 45 caratteri" position="top" />
+
+                    <h:outputLabel value="Quantità" for="qta" />
+
+                    <p:inputText id="qta" value="#{magazzinoInController.elementoMagazzino.quantita}" title="Quantità" 
+                                 required="true" requiredMessage="Campo obbligatorio" validatorMessage="Valore non corretto">
+                        <f:validateDoubleRange minimum="0.00" maximum="5000"/>
+                        <p:clientValidator event="keyup"/>
+                    </p:inputText>
+
+                    <p:message for="qta" />
+                    <p:tooltip for="qta" value="Valore double" position="top" />
+                </p:panelGrid>
+                <br />
+                <p:commandButton action="#{dataTableMagCdi.creaNuovoElemento()}" value="Crea" icon="fa fa-save"/>
+                <div align="center">
+                    <br />
+                    <br />
+                    <p:button outcome="/magazzinoin/lista" value="Torna al magazzino" icon="fa fa-cubes"/>
+                    <br />
+                    <br />
+                    <p:button outcome="/index" value="Home" icon="fa fa-home"/>
+                </div>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>
+

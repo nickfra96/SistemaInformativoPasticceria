@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title>
+            Login - Gelateria Fortino
+        </title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <!--  Google Fonts -->
+        <link href="http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600" rel="stylesheet" type="text/css" />
+        <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300" rel="stylesheet" type="text/css" />
+        <link href="http://fonts.googleapis.com/css?family=Raleway:400,100" rel="stylesheet" type="text/css" />
+        <!--  Bootstrap -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+        <!--  Font Awesome -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+        <!--  Custom CSS -->
+        <h:outputStylesheet name="./css/owl.carousel.css"/>
+        <h:outputStylesheet name="./style.css"/>
+        <h:outputStylesheet name="./css/responsive.css"/>
+
+
+    </h:head>
+    
+    <center><h1 style="color: #ff0; ">Pasticceria Peccati di Gola</h1></center>
+        
+    <h:body style="background: url(resources/images/legno.jpg); background-attachment:fixed;margin-top: 150px; background-size: 1200px">
+        <div> 
+            <center> <img src="resources/images/peccati-di-gola-logo-1.jpg" width="500" border="500"></img> </center>
+    </div> 
+        <div class="row" id="container">
+            <div class="col-lg-3">​</div>
+            <div class="col-lg-6" >​
+                <div class="well bs-component" id="content">
+                    
+                    <h:form style="background-color: #a5a5a5">
+                    <!--Impostazioni realm-->
+                    
+                        <div> 
+                        <legend style="color: #a35443;font-weight: bold">LOGIN</legend>​
+                        <p:outputLabel value="Username" style="color: #000"/> <p>   </p> 
+                            <div class="col-lg-10">
+                                <p:inputText id="username" value="#{login.user}"></p:inputText>
+                                <p:growl for="username"></p:growl>
+                            </div>
+                        </div>
+                        <p>&nbsp;</p>
+             
+                        <div>
+                            <br/>
+                            <p:outputLabel value="Password" style="color: #000" /> <p>   </p> 
+                            <div class="col-lg-10">
+                                <p:password id="password" value="#{login.pwd}"></p:password>
+                                <p:growl for="password"></p:growl>
+                            </div>
+                        </div>
+                        <p>&nbsp;</p>
+                        <br></br><br></br>
+                        
+                        <div class="form-group">
+                            <p:commandButton action="#{login.validateUsernamePassword}" value="accedi" style="background-color: #a35443" class="col-lg-4" ></p:commandButton>
+                            </div>                    
+                       
+                   
+                </h:form>
+                </div>
+            </div>
+        </div>
+
+    </h:body>
+</html>
+

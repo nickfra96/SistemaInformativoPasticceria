@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Dettaglio Fornitura</title>
+    </h:head>
+    <h:body>
+        <div align="center">
+            <img src="resources/images/peccati-di-gola-logo-1.jpg" width="400"></img>
+        </div>
+        <h:form id="frm">
+            <p:growl id="msgs" showDetail="true"/>
+            <p:dataTable id="dettForn" value="#{fornitoreController.dettaglioFornitura}" binding="#{dataModelCdi.dataTable}" var="itemx" editable="true" style="margin-bottom:20px" >
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Dettaglio fornitura n°#{fornitoreController.fornitura.id} di #{fornitoreController.fornitore.nome}" />
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="ID Fornitura">
+                    <h:outputText value="#{itemx.fornitura.id}" />
+                </p:column>
+                <p:column headerText="Codice Materia Prima">
+                    <p:commandLink value="#{itemx.materiaprima.descrizione}" action="#{dataModelCdi.infoMateriaprima()}"
+                                   oncomplete="PF('pop').show();" update="frm:pop"/>
+                </p:column>
+                <p:column headerText="Quantità">
+                    <h:outputText value="#{itemx.quantita}" />
+                </p:column>
+                <p:column headerText="Prezzo Unitario">
+                    <h:outputText value="#{itemx.prezzoUnitario}" />
+                </p:column>
+                <p:column>
+                    <p:commandButton title="Modifica" action="#{dataModelCdi.preparaModificaDetFornMatPrima()}" icon="fa fa-fw fa-edit"/>
+                    <h:outputText value=" "/>
+                    <p:commandButton title="Elimina" action="#{dataModelCdi.preparaEliminaDetFornMatPrima()}" icon="fa fa-fw fa-remove"
+                                     update="frm"/>
+                </p:column>
+            </p:dataTable>
+            <br />
+            <div align="center">
+            <p:commandButton value="Aggiungi elemento" action="#{fornitoreController.preparaCreaDettFornMatPrima()}" icon="fa fa-plus"/>
+            </div>
+            <div align="center">
+                <br />
+                <br />
+                <p:commandButton value="Registra Fattura" action="#{fornitoreController.mioPreparaCreaFattura()}" icon="fa fa-file-text"/>
+                <br />
+                <br/>
+                <br />
+                <p:button outcome="/fornitore/listaForniture" value="Torna alla lista delle forniture di #{fornitoreController.fornitore.nome}" 
+                          icon="fa fa-newspaper-o"/>
+                <br />
+                <br />
+                <p:button outcome="/fornitore/lista" value="Torna alla lista dei fornitori" icon="fa fa-user"/>
+                <br/>
+                <br />
+                <p:button outcome="/index" value="Home" icon="fa fa-home"/>
+            </div>
+            <p:dialog id="pop" widgetVar="pop" header="Dettaglio Materia Prima in Magazzino" resizable="false" showEffect="clip" hideEffect="clip">
+                <p:panelGrid columns="2">
+                    <h:outputLabel value="Codice" for="id" />
+                    <h:outputText id="id" value="#{fornitoreController.elementoMagazzino.materiaprimaCodice}" />
+                    <h:outputLabel value="Descrizione" for="des" />
+                    <h:outputText id="des" value="#{fornitoreController.elementoMagazzino.materiaprima.descrizione}" />
+                    <h:outputLabel value="Scorta" for="qta" />
+                    <h:outputText id="qta" value="#{fornitoreController.elementoMagazzino.quantita}" />
+                </p:panelGrid>
+                <div align="center">
+                    <br/>
+                    <br/>
+                    <p:commandButton action="#{dataTableMagCdi.preparaLista()}" value="Vai al magazzino" icon="fa fa-cubes" />
+                </div>
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

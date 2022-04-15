@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Lista Fornitori</title>
+        
+    </h:head>
+    <h:body >
+        
+      <br/>
+        <h:form id="g" >
+            <p:remoteCommand name="onload" oncomplete="PF('fornitori').clearFilters()" autoRun="true" />
+            <p:growl id="msgs" showDetail="true"/>
+            <p:dataTable id="fornitori" value="#{fornitoreController.listaFornitori}" binding="#{dataModelCdi.dataTable}" 
+                         var="item" widgetVar="fornitori" emptyMessage="Nessun fornitore trovato con il criterio scelto"
+                         filteredValue="#{fornitoreController.listaFiltrata}" style="margin-bottom:10px; margin-left: 10px; margin-right: 50px">
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Lista Fornitori" />
+                            <p:separator />
+                            <h:outputText value="Ricerca su tutti i campi:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('fornitori').filter()" style="width:150px"
+                                         placeholder="Cerca" />
+                        </p:outputPanel>
+                    </f:facet>
+                    <p:column headerText="Partita IVA" filterBy="#{item.piva}" filterMatchMode="contains">
+                        <h:outputText value="#{item.piva}" style="color: blue"/>
+                    </p:column>
+                    <p:column headerText="Nome" filterBy="#{item.nome}" filterMatchMode="contains">
+                        <h:outputText value="#{item.nome}" />
+                    </p:column>
+                    <p:column headerText="Telefono" filterBy="#{item.telefono}" filterMatchMode="contains">
+                        <h:outputText value="#{item.telefono}" style="color: blue" />
+                    </p:column>
+                    <p:column headerText="Sede" filterBy="#{item.sede}" filterMatchMode="contains">
+                        <h:outputText value="#{item.sede}" />
+                    </p:column>
+                    <p:column headerText="Tipo" filterBy="#{item.tipo}" filterMatchMode="exact">
+                        <f:facet name="filter">
+                           
+                            <p:selectOneMenu onchange="PF('fornitori').filter()">
+                                <f:selectItem itemLabel="Seleziona" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{fornitoreController.tipiFornitori}" />
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <h:outputText value="#{item.tipo}" style="color: blue" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton title="Modifica" action="#{dataModelCdi.preparaModifica()}" icon="fa fa-fw fa-edit" 
+                                         iconPos="center"/>
+                        <h:outputText value=" "/>
+                        <p:commandButton title="Elimina" action="#{dataModelCdi.eliminaEvedi()}" update="g" 
+                                         icon="fa fa-fw fa-remove" iconPos="center"/>
+                        <h:outputText value=" "/>
+                        <p:commandButton title="Forniture" action="#{dataModelCdi.vediListaForniture()}" icon="fa fa-fw fa-list" 
+                                         iconPos="center"/>
+                        <p:commandButton title="Fatture" action="#{dataModelCdi.vediListaFatture()}" icon="fa fa-fw fa-clone" 
+                                         iconPos="center"/>
+                    </p:column>
+                </p:dataTable>
+                <div align="center" >
+                    <br />
+                    <br />
+                    <p:commandButton value="Crea nuovo fornitore" action ="#{fornitoreController.preparaCrea()}" icon="fa fa-plus"/>
+                    <br />
+                    <br />
+                    <p:button outcome="/index" value="Home" icon="fa fa-home"/>
+                </div>
+        </h:form>
+    </h:body>
+</html>
+

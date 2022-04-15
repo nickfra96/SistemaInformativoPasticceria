@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+  
+        <h:form>
+            <div align="center">
+            <p:panelGrid columns="2">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="CModifica fornitura n° #{fornitoreController.fornitura.id} di #{fornitoreController.fornitore.nome}" />
+                    </p:outputPanel>
+                </f:facet>
+                <h:outputLabel value="ID" for="id" />
+                <h:inputText id="id" value="#{fornitoreController.fornitura.id}" title="ID" disabled="true"/>
+                <h:outputLabel value="Data" for="data" />
+                <p:calendar id="data" value="#{fornitoreController.data}" effect="fold" />
+                <h:outputLabel value="Tipo" for="tipo" />
+                <h:inputText id="tipo" value="#{fornitoreController.fornitura.tipo}" title="Tipo" disabled="true" />
+                <h:outputLabel value="Fornitore" for="fornitore" />
+                <h:inputText id="fornitore" value="#{fornitoreController.fornitura.fornitorePiva}" title="Fornitore" disabled="true" />
+            </p:panelGrid>
+            <br />
+            <p:commandButton action="#{fornitoreController.modificaFornitura}" value="Modifica" icon="fa fa-refresh"/>
+            <div align="center" >
+                <br />
+                <br />
+                <p:button outcome="/fornitore/listaForniture" value="Torna alla lista delle forniture di #{fornitoreController.fornitore.nome}" 
+                        icon="fa fa-newspaper-o"/>               
+                <br />
+                <br />
+                <p:button outcome="/fornitore/lista" value="Torna alla lista dei fornitori" icon="fa fa-user"/>
+                <br />
+                <br />
+                <p:button outcome="/index" value="Home" icon="fa fa-home"/>
+            </div>
+        </h:form>
+</div>
+    </h:body>
+</html>
+
